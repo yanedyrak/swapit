@@ -2,10 +2,13 @@ package module
 
 import (
 	"github.com/gin-gonic/gin"
-	http "github.com/yanedyrak/swapit/internal/infrastructure/http/auth"
+	"github.com/yanedyrak/swapit/internal/infrastructure/http"
 	"gorm.io/gorm"
 )
 
 func InitAuthModule(db *gorm.DB, router *gin.Engine) {
-	router.POST("/auth/register", http.Register(db))
+	authHTTP := http.NewAuthHTTP(db)
+	router.POST("/register", authHTTP.Register)
+	router.POST("/login", authHTTP.Login)
+	router.POST("/logout", authHTTP.Logout)
 }

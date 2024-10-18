@@ -20,10 +20,9 @@ func (r *ReviewRepo) Create(review *entity.Review) error {
 	return nil
 }
 
-func (r *ReviewRepo) FindByUserID(userID string) ([]entity.Review, error) {
-	var reviews []entity.Review
-	if err := r.db.Where("user_id = ?", userID).Find(&reviews).Error; err != nil {
-		return nil, err
+func (r *ReviewRepo) Delete(review *entity.Review) error {
+	if err := r.db.Delete(review).Error; err != nil {
+		return err
 	}
-	return reviews, nil
+	return nil
 }

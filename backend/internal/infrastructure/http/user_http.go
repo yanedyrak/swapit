@@ -6,15 +6,15 @@ import (
 	"net/http"
 )
 
-type UserUserCase interface {
+type UserUseCase interface {
 	CreateUser(user *entity.User) error
 }
 
 type UserHTTP struct {
-	userUC UserUserCase
+	userUC UserUseCase
 }
 
-func NewUserHTTP(userUC UserUserCase) *UserHTTP {
+func NewUserHTTP(userUC UserUseCase) *UserHTTP {
 	return &UserHTTP{
 		userUC: userUC,
 	}

@@ -14,6 +14,7 @@ func main() {
 	database := db.NewPostgresDB()
 
 	module.InitUserModule(database, router)
+	module.InitAuthModule(database, router)
 
 	if err := router.Run(":" + strconv.Itoa(cfg.Listen.Port)); err != nil {
 		panic(err)
