@@ -1,6 +1,13 @@
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 
 import { Icon } from "../shared/Icon";
+import LinkIntoProfile from "../entities/LinkIntoProfile";
 
 export const ProfileScreen = () => {
   return (
@@ -24,7 +31,7 @@ export const ProfileScreen = () => {
       </SafeAreaView>
       <ScrollView>
         <View className="p-5 bg-zinc-900 mb-2 border-b-[1px] border-zinc-700">
-          <View className="flex justify-center items-center h-16 w-16 bg-slate-400 rounded-full">
+          <View className="flex justify-center items-center h-20 w-20 bg-slate-400 rounded-full">
             <Text className="text-4xl text-white">И</Text>
           </View>
           <View>
@@ -61,6 +68,43 @@ export const ProfileScreen = () => {
           </View>
           <Icon name="ChevronRight" color="#71717a" />
         </View>
+        <View className="my-2">
+          <LinkIntoProfile title="Тариф" description="Решения для бизнеса" />
+          <LinkIntoProfile
+            title="Пакеты контактов"
+            description="Для тех, кто перепродает авто"
+          />
+        </View>
+        <View className="mb-2">
+          <LinkIntoProfile
+            title="Спецпредложения"
+            description="Нет активных или запланированных"
+          />
+        </View>
+        <View className="mb-2">
+          <LinkIntoProfile
+            title="Социальные сети"
+            description="Нет привязанных аккаунтов"
+          />
+        </View>
+        <View className="mb-2">
+          <LinkIntoProfile
+            title="SwapIt доставка"
+            description="В пункт выдачи и курьером"
+          />
+        </View>
+        <View className="mb-2">
+          <LinkIntoProfile
+            title="Поиск работы"
+            description="У вас пока нет резюме"
+          />
+        </View>
+        <TouchableOpacity className="flex flex-row justify-center items-center px-5 py-4 bg-zinc-900 border-b-[1px] border-zinc-700 mb-2">
+          <Text className="text-blue-500">Изменить пароль</Text>
+        </TouchableOpacity>
+        <TouchableOpacity className="flex flex-row justify-center items-center px-5 py-4 bg-zinc-900 border-b-[1px] border-zinc-700 mb-7">
+          <Text className="text-blue-500">Выйти</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
