@@ -19,6 +19,5 @@ func main() {
 	if err := router.Run(":" + strconv.Itoa(cfg.Listen.Port)); err != nil {
 		panic(err)
 	}
-}
 
-// func main() {
+}
