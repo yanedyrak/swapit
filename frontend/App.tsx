@@ -1,12 +1,16 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
 import { TabNavigation } from "./src/widgets/TabNavigation";
+import { AuthProvider } from "./src/shared/providers/AuthContext";
 
-const Stack = createNativeStackNavigator();
+import { AuthStack } from "./AuthStack";
+import { NavigationContainer } from "@react-navigation/native";
+
 export default function App() {
   return (
-    <NavigationContainer>
-      <TabNavigation />
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <TabNavigation />
+        {/* <AuthStack /> */}
+      </NavigationContainer>
+    </AuthProvider>
   );
 }

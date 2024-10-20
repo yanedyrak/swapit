@@ -4,12 +4,13 @@ import { ScrollHistories } from "../widgets/ScrollHistories";
 import { ScrollTags } from "../widgets/ScrollTags";
 import { SearchAndCart } from "../widgets/SearchAndCart";
 import { ItemPreview } from "../widgets/ItemPreview";
+import { useContext } from "react";
+import { AuthContext } from "../shared/providers/AuthContext";
 
 export const SearchScreen = () => {
   return (
     <SafeAreaView className="flex flex-grow bg-zinc-900">
       <SearchAndCart />
-
       <ScrollView className="px-4 flex-1">
         <ScrollTags />
         <ScrollCategory />
