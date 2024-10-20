@@ -8,10 +8,8 @@ import { icons } from "lucide-react-native";
 
 const Tab = createBottomTabNavigator();
 
-// Type for icon names based on the available icons in lucide-react-native
 type IconName = keyof typeof icons;
 
-// Constants for tab screen options
 const screenOptions = ({ name }: { name: IconName }) => ({
   tabBarIcon: ({
     color,
@@ -35,24 +33,29 @@ export const TabNavigation = () => (
     }}
   >
     <Tab.Screen
-      name="Profile"
-      component={ProfileScreen}
-      options={screenOptions({ name: "User" })}
-    />
-    <Tab.Screen
-      name="Home"
-      component={AdScreen}
-      options={screenOptions({ name: "House" })}
-    />
-    <Tab.Screen
-      name="Search"
+      name="Поиск"
       component={SearchScreen}
       options={screenOptions({ name: "Search" })}
     />
     <Tab.Screen
-      name="Chat"
+      name="Избранное"
+      component={AdScreen}
+      options={screenOptions({ name: "Heart" })}
+    />
+    <Tab.Screen
+      name="Объявления"
+      component={AdScreen}
+      options={screenOptions({ name: "Plus" })}
+    />
+    <Tab.Screen
+      name="Сообщения"
       component={ChatScreen}
       options={screenOptions({ name: "MessageCircle" })}
+    />
+    <Tab.Screen
+      name="Профиль"
+      component={ProfileScreen}
+      options={screenOptions({ name: "User" })}
     />
   </Tab.Navigator>
 );
