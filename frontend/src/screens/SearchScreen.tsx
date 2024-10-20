@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, View } from "react-native";
+import { SafeAreaView, ScrollView, View, Text } from "react-native";
 import { ScrollCategory } from "../widgets/ScrollCategory";
 import { ScrollHistories } from "../widgets/ScrollHistories";
 import { ScrollTags } from "../widgets/ScrollTags";
@@ -9,6 +9,7 @@ export const SearchScreen = () => {
   return (
     <SafeAreaView className="flex flex-grow bg-zinc-900">
       <SearchAndCart />
+
       <ScrollView className="px-4 flex-1">
         <ScrollTags />
         <ScrollCategory />

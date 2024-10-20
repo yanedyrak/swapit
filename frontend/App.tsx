@@ -1,13 +1,12 @@
-import { View } from "react-native";
-import { ProfileScreen } from "./src/screens/ProfileScreen";
-import { SearchScreen } from "./src/screens/SearchScreen";
-import { Navbar } from "./src/widgets/Navbar";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { TabNavigation } from "./src/widgets/TabNavigation";
 
+const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <View className="flex flex-1">
-      <ProfileScreen />
-      <Navbar />
-    </View>
+    <NavigationContainer>
+      <TabNavigation />
+    </NavigationContainer>
   );
 }
