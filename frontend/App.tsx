@@ -14,3 +14,5 @@ export default function App() {
     </AuthProvider>
   );
 }
+
+// TODO: add loading screen

@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios, { AxiosInstance } from "axios";
 
 function createInstance(): AxiosInstance {
@@ -5,9 +6,12 @@ function createInstance(): AxiosInstance {
     baseURL: "http://localhost:8080",
     headers: {},
   });
-  instance.interceptors.response.use(
+  instance.interceptors.request.use(
     (config) => {
-      console.log(config);
+      const token = AsyncStorage.getItem("token");
+      if (token && config.url && !config.url.includes("auth")) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
       return config;
     },
     (error) => {
