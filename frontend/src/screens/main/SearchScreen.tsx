@@ -1,11 +1,9 @@
 import { SafeAreaView, ScrollView, View, Text } from "react-native";
-import { ScrollCategory } from "../widgets/ScrollCategory";
-import { ScrollHistories } from "../widgets/ScrollHistories";
-import { ScrollTags } from "../widgets/ScrollTags";
-import { SearchAndCart } from "../widgets/SearchAndCart";
-import { ItemPreview } from "../widgets/ItemPreview";
-import { useContext } from "react";
-import { AuthContext } from "../shared/providers/AuthContext";
+import { ScrollCategory } from "../../widgets/ScrollCategory";
+import { ScrollHistories } from "../../widgets/ScrollHistories";
+import { ScrollTags } from "../../widgets/ScrollTags";
+import { SearchAndCart } from "../../widgets/SearchAndCart";
+import { ItemPreview } from "../../widgets/ItemPreview";
 
 export const SearchScreen = () => {
   return (

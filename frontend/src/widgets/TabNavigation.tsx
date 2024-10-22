@@ -1,7 +1,7 @@
-import { ProfileScreen } from "../screens/ProfileScreen";
-import { SearchScreen } from "../screens/SearchScreen";
-import { ChatScreen } from "../screens/ChatScreen";
-import { AdScreen } from "../screens/AdScreen";
+import { ProfileScreen } from "../screens/main/ProfileScreen";
+import { SearchScreen } from "../screens/main/SearchScreen";
+import { ChatScreen } from "../screens/main/ChatScreen";
+import { AdScreen } from "../screens/main/AdScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "../shared/Icon";
 import { icons } from "lucide-react-native";

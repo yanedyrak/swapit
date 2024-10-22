@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView } from "react-native";
 import React from "react";
-import AdPreview from "../entities/AdPreview";
+import AdPreview from "../../entities/AdPreview";
 
 export const AdScreen = () => {
   return (

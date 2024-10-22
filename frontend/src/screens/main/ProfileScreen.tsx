@@ -6,10 +6,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { Icon } from "../shared/Icon";
-import LinkIntoProfile from "../entities/LinkIntoProfile";
+import { Icon } from "../../shared/Icon";
+import LinkIntoProfile from "../../entities/LinkIntoProfile";
+import { authStore } from "../../shared/store/api/book-store/auth-store";
+import { useAuth } from "../../shared/hooks/useAuth";
 
 export const ProfileScreen = () => {
+  const { logout } = useAuth();
   return (
     <View className="flex flex-1 bg-black">
       <SafeAreaView className=" bg-zinc-900">
@@ -102,7 +105,10 @@ export const ProfileScreen = () => {
         <TouchableOpacity className="flex flex-row justify-center items-center px-5 py-4 bg-zinc-900 border-b-[1px] border-zinc-700 mb-2">
           <Text className="text-blue-500">Изменить пароль</Text>
         </TouchableOpacity>
-        <TouchableOpacity className="flex flex-row justify-center items-center px-5 py-4 bg-zinc-900 border-b-[1px] border-zinc-700 mb-7">
+        <TouchableOpacity
+          className="flex flex-row justify-center items-center px-5 py-4 bg-zinc-900 border-b-[1px] border-zinc-700 mb-7"
+          onPress={() => logout()}
+        >
           <Text className="text-blue-500">Выйти</Text>
         </TouchableOpacity>
       </ScrollView>

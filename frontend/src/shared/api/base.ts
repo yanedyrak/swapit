@@ -4,11 +4,13 @@ import axios, { AxiosInstance } from "axios";
 function createInstance(): AxiosInstance {
   const instance = axios.create({
     baseURL: "http://localhost:8080",
-    headers: {},
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   instance.interceptors.request.use(
-    (config) => {
-      const token = AsyncStorage.getItem("token");
+    async (config) => {
+      const token = await AsyncStorage.getItem("token");
       if (token && config.url && !config.url.includes("auth")) {
         config.headers.Authorization = `Bearer ${token}`;
       }

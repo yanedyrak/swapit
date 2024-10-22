@@ -6,8 +6,8 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
-import { SearchAndBlackList } from "../widgets/SearchAndBlackList";
-import ChatPreview from "../widgets/ChatPreview";
+import { SearchAndBlackList } from "../../widgets/SearchAndBlackList";
+import ChatPreview from "../../widgets/ChatPreview";
 
 export const ChatScreen = () => {
   return (
