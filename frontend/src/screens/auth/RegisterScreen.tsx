@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { Icon } from "../../shared/Icon";
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../shared/providers/AuthContext";
+import React, { useState } from "react";
+import { useAuth } from "../../shared/hooks/useAuth";
 
 export const RegisterScreen = ({ navigation }) => {
   const [{ username, email, password }, setData] = useState({
@@ -10,6 +10,7 @@ export const RegisterScreen = ({ navigation }) => {
     password: "",
   });
   const { register } = useAuth();
+
   return (
     <View className="bg-zinc-900 flex flex-1 p-5">
       <View className="flex flex-1">
@@ -19,7 +20,7 @@ export const RegisterScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View className="mt-5">
-          <Text className="text-3xl font-bold text-white">{token}</Text>
+          <Text className="text-3xl font-bold text-white">Регистрация</Text>
           <TextInput
             className="bg-zinc-800 px-5 h-12 rounded-lg mt-5 text-base text-white"
             placeholder="Имя"
@@ -54,7 +55,7 @@ export const RegisterScreen = ({ navigation }) => {
       </View>
       <TouchableOpacity
         className="bg-blue-500 px-5 h-12 rounded-lg mb-14 flex justify-center items-center"
-        onPress={() => registerAction({ username, email, password })}
+        onPress={() => register({ username, email, password })}
       >
         <Text className="text-white text-base">Зарегестрироваться</Text>
       </TouchableOpacity>

@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 
-import { Icon } from "../shared/Icon";
+import { Icon } from "../../shared/Icon";
 
 export const ItemPreview = () => {
   return (

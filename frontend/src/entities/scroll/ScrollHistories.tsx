@@ -1,5 +1,5 @@
 import { ScrollView, Text } from "react-native";
-import { History } from "./History";
+import { History } from "../History";
 
 export const ScrollHistories = () => (
   <ScrollView

@@ -2,7 +2,10 @@ import { baseInstance } from "../base";
 import { LoginRequest, RegisterRequest } from "./types";
 
 export const login = async (LoginRequest: LoginRequest) => {
-  const { data } = await baseInstance.post("/auth/login", LoginRequest);
+  const { data } = await baseInstance.post<{ token: string }>(
+    "/auth/login",
+    LoginRequest
+  );
   return data.token;
 };
 

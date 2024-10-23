@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { Icon } from "../shared/Icon";
+import { Icon } from "./Icon";
 
 const LinkIntoProfile = ({
   title,

@@ -1,8 +1,8 @@
 import React from "react";
 import { TextInput, View } from "react-native";
-import { Icon } from "../shared/Icon";
+import { Icon } from "../../shared/Icon";
 
-export const SearchAndBlackList = () => {
+export const SearchAndCart = () => {
   const [search, setSearch] = React.useState("");
   return (
     <View className="px-5 pb-2 flex flex-row items-center">
@@ -14,7 +14,7 @@ export const SearchAndBlackList = () => {
           size={20}
         />
         <TextInput
-          placeholder="Поиск по сообщениям"
+          placeholder="Поиск в Рязани"
           className="ml-3 text-white flex-1 text-base h-12"
           placeholderTextColor="#52525b"
           value={search}
@@ -24,7 +24,7 @@ export const SearchAndBlackList = () => {
       </View>
 
       {/* Shopping Cart Icon */}
-      <Icon name="Ellipsis" color="white" className="shrink-0" />
+      <Icon name="ShoppingCart" color="white" className="shrink-0" />
     </View>
   );
 };
