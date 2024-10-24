@@ -12,56 +12,67 @@ import (
 type AuthHTTP struct {
 	db *gorm.DB
 }
+type RegisterRequest struct {
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+type LoginRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
 
 func NewAuthHTTP(db *gorm.DB) *AuthHTTP { return &AuthHTTP{db: db} }
 
 func (a *AuthHTTP) Login(c *gin.Context) {
-	email, password := c.PostForm("email"), c.PostForm("password")
 	var user entity.User
+	var req LoginRequest
 
-	if err := a.db.Where("email = ?", email).First(&user).Error; err != nil || user.Email == "" {
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+		return
+	}
+	if err := a.db.Where("email = ?", req.Email).First(&user).Error; err != nil || user.Email == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid email or password"})
 		return
 	}
 
-	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password)); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid email or password"})
 		return
 	}
 
-	if tokens, err := lib.CreateTokens(user.ID); err == nil {
-		c.SetCookie("access_token", tokens.AccessToken, 3600, "/", "", false, true)
-		c.SetCookie("refresh_token", tokens.RefreshToken, 86400, "/", "", false, true)
-		c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
+	if token, err := lib.CreateTokens(user.ID); err == nil {
+		c.JSON(http.StatusOK, gin.H{
+			"token": token})
 	} else {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create tokens"})
 	}
 }
 
-func (a *AuthHTTP) Logout(c *gin.Context) {
-	c.SetCookie("access_token", "", -1, "/", "", false, true)
-	c.SetCookie("refresh_token", "", -1, "/", "", false, true)
-	c.JSON(http.StatusOK, gin.H{"message": "Logout successful"})
-}
-
 func (a *AuthHTTP) Register(c *gin.Context) {
-	username, email, password := c.PostForm("username"), c.PostForm("email"), c.PostForm("password")
-	var existingUser entity.User
-
-	if err := a.db.Where("email = ?", email).First(&existingUser).Error; err == nil && existingUser.Email != "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Email already exists"})
+	var req RegisterRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 		return
 	}
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	// Check if the user already exists by email
+	var existingUser entity.User
+	if err := a.db.Where("email = ?", req.Email).First(&existingUser).Error; err == nil {
+		c.JSON(http.StatusConflict, gin.H{"error": "Email already registered"})
+		return
+	}
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
 		return
 	}
 
 	user := entity.User{
-		Username: username,
-		Email:    email,
+		Username: req.Username,
+		Email:    req.Email,
 		Password: string(hashedPassword),
 	}
 
@@ -70,10 +81,8 @@ func (a *AuthHTTP) Register(c *gin.Context) {
 		return
 	}
 
-	if tokens, err := lib.CreateTokens(user.ID); err == nil {
-		c.SetCookie("access_token", tokens.AccessToken, 3600, "/", "localhost", false, true)
-		c.SetCookie("refresh_token", tokens.RefreshToken, 86400, "/", "localhost", false, true)
-		c.JSON(http.StatusCreated, user)
+	if token, err := lib.CreateTokens(user.ID); err == nil {
+		c.JSON(http.StatusCreated, gin.H{"token": token})
 	} else {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create tokens"})
 	}

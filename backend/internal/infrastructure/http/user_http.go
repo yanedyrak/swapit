@@ -7,7 +7,7 @@ import (
 )
 
 type UserUseCase interface {
-	CreateUser(user *entity.User) error
+	FindByID(id uint) (*entity.User, error)
 }
 
 type UserHTTP struct {
@@ -20,26 +20,18 @@ func NewUserHTTP(userUC UserUseCase) *UserHTTP {
 	}
 }
 
-func (u *UserHTTP) CreateUser(c *gin.Context) {
-	var user entity.User
+func (u *UserHTTP) FindByID(c *gin.Context) {
+	id, exists := c.Get("user_id")
 
-	// Декодируем JSON из тела запроса в структуру пользователя
-	if err := c.ShouldBindJSON(&user); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
 		return
 	}
 
-	// Вызываем use case для создания пользователя
-	if err := u.userUC.CreateUser(&user); err != nil {
-		// Если возникает ошибка при создании пользователя, возвращаем 500
+	user, err := u.userUC.FindByID(id.(uint))
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-
-	// Возвращаем успешный ответ с данными пользователя
-	c.JSON(http.StatusCreated, user)
-}
-
-func (u *UserHTTP) Hello(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "Hello, World!"})
+	c.JSON(http.StatusOK, user)
 }

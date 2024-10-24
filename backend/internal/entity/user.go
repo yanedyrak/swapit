@@ -1,14 +1,16 @@
 package entity
 
+import "gorm.io/gorm"
+
 type User struct {
-	ID       string  `json:"id" gorm:"primaryKey"`
+	gorm.Model
 	Username string  `json:"username" gorm:"unique;not null"`
 	Email    string  `json:"email" gorm:"unique;not null"`
-	Password string  `json:"password"`
-	Phone    string  `json:"phone" gorm:"unique"`
-	Location string  `json:"location"`
-	Rating   float64 `json:"rating" gorm:"default:0"`
+	Password string  `json:"password" gorm:"not null"`
+	Phone    string  `json:"phone" gorm:""`           // Телефон может быть уникальным, но необязательным
+	Location string  `json:"location"`                // Локация необязательна
+	Rating   float64 `json:"rating" gorm:"default:0"` // Значение по умолчанию для рейтинга
 
-	Items   []Item   `json:"items" gorm:"foreignKey:UserID"`
-	Reviews []Review `json:"reviews" gorm:"foreignKey:UserID"`
+	Items   []Item   `json:"items" gorm:"foreignKey:UserID"`   // Связь "один ко многим" с Item
+	Reviews []Review `json:"reviews" gorm:"foreignKey:UserID"` // Связь "один ко многим" с Review
 }

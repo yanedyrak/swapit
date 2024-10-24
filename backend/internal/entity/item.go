@@ -1,10 +1,12 @@
 package entity
 
+import "gorm.io/gorm"
+
 type Item struct {
-	ID       string `json:"id" gorm:"primaryKey"`
-	Name     string `json:"name"`
-	Price    int    `json:"price"`
+	gorm.Model
+	Name     string `json:"name" gorm:"not null"`
+	Price    int    `json:"price" gorm:"not null"`
 	Category string `json:"category"`
 
-	UserID string `json:"user_id" gorm:"foreignKey:UserID"`
+	UserID uint `json:"user_id"` // Внешний ключ, который автоматически ссылается на поле ID из таблицы пользователей
 }

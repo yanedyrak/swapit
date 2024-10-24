@@ -15,7 +15,7 @@ func main() {
 
 	module.InitUserModule(database, router)
 	module.InitAuthModule(database, router)
-
+	module.InitReviewModule(database, router)
 	if err := router.Run(":" + strconv.Itoa(cfg.Listen.Port)); err != nil {
 		panic(err)
 	}

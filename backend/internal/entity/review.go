@@ -1,9 +1,11 @@
 package entity
 
+import "gorm.io/gorm"
+
 type Review struct {
-	ID     string `json:"id" gorm:"primaryKey"`
-	Rating int    `json:"rating"`
+	gorm.Model
+	Rating int    `json:"rating" gorm:"not null"`
 	Text   string `json:"text"`
 
-	UserID string `json:"user_id" gorm:"foreignKey:UserID"`
+	UserID uint `json:"user_id"` // Внешний ключ, который автоматически ссылается на поле ID из таблицы пользователей
 }

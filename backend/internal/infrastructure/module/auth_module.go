@@ -8,7 +8,6 @@ import (
 
 func InitAuthModule(db *gorm.DB, router *gin.Engine) {
 	authHTTP := http.NewAuthHTTP(db)
-	router.POST("/register", authHTTP.Register)
-	router.POST("/login", authHTTP.Login)
-	router.POST("/logout", authHTTP.Logout)
+	router.POST("/auth/register", authHTTP.Register)
+	router.POST("/auth/login", authHTTP.Login)
 }
